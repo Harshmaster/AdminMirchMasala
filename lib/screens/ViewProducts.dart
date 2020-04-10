@@ -45,6 +45,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
           backgroundColor: Colors.red[300],
           title: Text('ALL PRODUCTS'),
         ),

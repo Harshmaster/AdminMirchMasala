@@ -23,7 +23,6 @@ class ProductItem extends StatelessWidget {
       onTap: () async {
 
           Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SingleProduct(id:this.id)));
-        
       },
       child: Container(
         decoration: BoxDecoration(

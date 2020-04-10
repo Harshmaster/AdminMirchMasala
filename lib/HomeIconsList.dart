@@ -8,34 +8,25 @@ List<Category> categoryList = [
   Category(
     title: 'Add Product',
     subTitle: 'April , Monday',
-    imgLink: 'assets/images/addIcon.png',
+    imgLink: 'assets/images/addProduct.png',
+      
   ),
   Category(
     title: 'View Products',
     subTitle: 'April , Monday',
-    imgLink: 'assets/images/AddCategory.png',
+    imgLink: 'assets/images/viewProducts.png',
     routeAddress: ProductListScreen.routeName,
   ),
   Category(
     title: 'View Users',
     subTitle: 'HELLO',
-    imgLink: ViewUsers.routeName,
+    imgLink: 'assets/images/ViewUsers.png',
     routeAddress: ViewUsers.routeName,
   ),
   Category(
     title: 'View Orders',
     subTitle: 'HELLOHII',
-    imgLink: 'assets/images/createUser.png',
+    imgLink: 'assets/images/ViewOrders.png',
     routeAddress: ViewOrders.routeName,
   ),
-  // Category(
-  //   title: 'Orders',
-  //   subTitle: 'April , Monday',
-  //   imgLink: 'assets/images/addBusinessType.png',
-  // ),
-  // Category(
-  //   title: 'User Permission',
-  //   subTitle: 'April , Moncday',
-  //   imgLink: 'assets/images/userPermission.png',
-  // ),
 ];

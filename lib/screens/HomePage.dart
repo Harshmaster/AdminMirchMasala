@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(top: 9),
                   child: Text(
-                    'Hi Welcome John !',
+                    'Mirch Masala', 
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
               child: Icon(
                 Icons.settings,
                 size: 33,
-                color: Colors.blue[600],
+                color: Colors.black,
               ),
             ),
           ],
