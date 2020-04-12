@@ -6,7 +6,6 @@ class EditProduct extends StatefulWidget {
   final String id;
   EditProduct({this.id});
   @override
-  
   _EditProductState createState() => _EditProductState();
 }
 

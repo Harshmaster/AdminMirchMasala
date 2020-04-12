@@ -1,4 +1,5 @@
 import 'package:adminAppPandamic/screens/HomePage.dart';
+import 'package:adminAppPandamic/screens/SearchOrders.dart';
 import 'package:adminAppPandamic/screens/SingleProduct.dart';
 import 'package:adminAppPandamic/screens/ViewUsers.dart';
 import 'package:adminAppPandamic/screens/viewOrders.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         SingleProduct.routeName: (ctx) => SingleProduct(),
         ViewUsers.routeName: (ctx) => ViewUsers(),
         ViewOrders.routeName: (ctx) => ViewOrders(),
+        SearchOrders.routeName: (ctx) => SearchOrders(),
       },
       debugShowCheckedModeBanner: false,
     );

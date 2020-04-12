@@ -51,6 +51,7 @@ flutter:
     - assets/images/ViewOrders.png
     - assets/images/viewProducts.png
     - assets/images/ViewUsers.png
+    - assets/images/search-orders.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

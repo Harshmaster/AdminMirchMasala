@@ -24,7 +24,9 @@ class _ViewOrdersState extends State<ViewOrders> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        backgroundColor: Colors.red[200],
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: Colors.black,
         title: Text('All Orders'),
       ),
       body: StreamBuilder(

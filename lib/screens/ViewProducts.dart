@@ -20,7 +20,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
         .then((QuerySnapshot docs) {
       setState(() {
         productList = List.generate(docs.documents.length, (index) {
-          print(docs.documents[index].data["product_image_url"]);
           return Product(
             productName: docs.documents[index].data["product_name"],
             productImageUrl: docs.documents[index].data["product_image_url"],
@@ -45,14 +44,15 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
+          centerTitle: true,
           automaticallyImplyLeading: false,
           elevation: 0,
-          backgroundColor: Colors.red[300],
+          backgroundColor: Colors.black,
           title: Text('ALL PRODUCTS'),
         ),
         body: productList != null
             ? GridView(
-                padding: const EdgeInsets.all(25),
+                padding: const EdgeInsets.all(10),        
                 children: productList.map((Product catData) {
                   return ProductItem(
                     productName: catData.productName,
@@ -65,11 +65,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 }).toList(),
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
-                  childAspectRatio: 0.54,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
+                  childAspectRatio: 0.54, 
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 15,  
                 ),
               )
-            : SpinKitCircle(color: Colors.red));
+            : SpinKitCircle(color: Colors.black));
   }
 }

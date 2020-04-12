@@ -1,3 +1,4 @@
+import 'package:adminAppPandamic/screens/SearchOrders.dart';
 import 'package:adminAppPandamic/screens/ViewUsers.dart';
 import 'package:adminAppPandamic/screens/viewOrders.dart';
 
@@ -28,5 +29,11 @@ List<Category> categoryList = [
     subTitle: 'HELLOHII',
     imgLink: 'assets/images/ViewOrders.png',
     routeAddress: ViewOrders.routeName,
+  ),
+    Category(
+    title: 'Search Order',
+    subTitle: 'HELLOHII',
+    imgLink: 'assets/images/search-orders.png',
+    routeAddress: SearchOrders.routeName,
   ),
 ];

@@ -21,71 +21,71 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SingleProduct(id:this.id)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => SingleProduct(id: this.id)));
       },
       child: Container(
+        padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
+          // border: Border.all(),
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(0),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
+              padding: EdgeInsets.all(6),
               width: double.infinity,
-              height: 100,
+              height: 191,
               decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 2),
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(0),
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(0),
                 child: Image.network(
                   imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
             Container(
-              margin: EdgeInsets.all(5),
+              margin: EdgeInsets.only(top: 6, bottom: 3),
               child: Text(
                 productName,
                 style: TextStyle(
-                  fontSize: 17,
+                  fontSize: 16.5,
                   fontWeight: FontWeight.bold,
                   color: Colors.brown,
                 ),
               ),
             ),
-            SizedBox(
-              height: 12,
-            ),
             Text(
               'Rs $price',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 19,
                 fontWeight: FontWeight.bold,
-                color: Colors.pink,
+                color: Colors.black,
               ),
             ),
             Expanded(
                 child: SizedBox(
-              height: 10,
+              height: 0,
             )),
             Container(
-              padding: EdgeInsets.only(left: 10),
               width: double.infinity,
               child: Text(
                 category,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.pink[200],
+                  color: Colors.green,
                 ),
-                textAlign: TextAlign.left,
+                textAlign: TextAlign.end,
               ),
             ),
           ],
