@@ -122,8 +122,8 @@ class _SingleProductState extends State<SingleProduct> {
                       Text(
                         "Is Recommended:    ${productDetails[0].isRecommended.toString()}",
                         style: TextStyle(
-                            color: Colors.brown,
-                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            // fontWeight: FontWeight.bold,
                             fontSize: 19),
                       ),
                       SizedBox(
@@ -132,8 +132,8 @@ class _SingleProductState extends State<SingleProduct> {
                       Text(
                         "Category:    ${productDetails[0].productCategory}",
                         style: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            // fontWeight: FontWeight.bold,
                             fontSize: 19),
                       ),
                       SizedBox(
@@ -143,7 +143,7 @@ class _SingleProductState extends State<SingleProduct> {
                         "Price:    Rs ${productDetails[0].productPrice}",
                         style: TextStyle(
                             color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                            // fontWeight: FontWeight.bold,
                             fontSize: 19),
                       ),
                       SizedBox(
@@ -152,8 +152,8 @@ class _SingleProductState extends State<SingleProduct> {
                       Text(
                         "Quantity:    ${productDetails[0].productSize}",
                         style: TextStyle(
-                            color: Colors.brown,
-                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            // fontWeight: FontWeight.bold,
                             fontSize: 19),
                       ),
                       SizedBox(
@@ -162,8 +162,8 @@ class _SingleProductState extends State<SingleProduct> {
                       Text(
                         "Product Vendor:    ${productDetails[0].productVendor}",
                         style: TextStyle(
-                            color: Colors.green[600],
-                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            // fontWeight: FontWeight.bold,
                             fontSize: 19),
                       ),
                       SizedBox(
@@ -173,6 +173,6 @@ class _SingleProductState extends State<SingleProduct> {
                   ),
                 ),
               )
-            : SpinKitCircle(color: Colors.red));
+            : SpinKitCircle(color: Colors.black));
   }
 }

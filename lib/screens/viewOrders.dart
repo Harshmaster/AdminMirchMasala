@@ -78,7 +78,6 @@ class _ViewOrdersState extends State<ViewOrders> {
           .getDocuments()
           .then((QuerySnapshot docs) {
         for (int i = 0; i < docs.documents.length; i++) {
-
           orderedList.add(Order(
             name: docs.documents[i].data["user_name"],
             itemCount: docs.documents[i].data["order_count"],
@@ -120,6 +119,7 @@ class _ViewOrdersState extends State<ViewOrders> {
                         status: orderedList[index].status,
                         user_id: orderedList[index].user_id,
                         vendor: orderedList[index].vendor,
+                        getData: getData,
                       );
                     },
                   )
@@ -144,15 +144,18 @@ class OrderCard extends StatefulWidget {
   final int itemCount;
   final String modeofpayment;
   final String user_id;
+  Function getData;
 
-  OrderCard(
-      {this.name,
-      this.itemCount,
-      this.modeofpayment,
-      this.status,
-      this.price,
-      this.vendor,
-      this.user_id});
+  OrderCard({
+    this.name,
+    this.itemCount,
+    this.modeofpayment,
+    this.status,
+    this.price,
+    this.vendor,
+    this.user_id,
+    this.getData
+  });
 
   @override
   _OrderCardState createState() => _OrderCardState();
@@ -220,17 +223,15 @@ class _OrderCardState extends State<OrderCard> {
                 hint: Text("Status : ${widget.status}",
                     style: TextStyle(fontSize: 19)),
                 value: widget.status,
-                onChanged: (String value) {
+                onChanged: (String value) async {
+                  Firestore.instance
+                      .collection("orders")
+                      .document(widget.user_id)
+                      .updateData({"status": value.toString()});
                   setState(() {
-                    Firestore.instance
-                        .collection("orders")
-                        .document(widget.user_id)
-                        .updateData({"status": value.toString()}).then(
-                            (value4) {
-                      widget.status = value;
-                    });
+                    widget.status = value;
+                    widget.getData();
                   });
-         
                 },
                 items: dropList.map(
                   (variable) {

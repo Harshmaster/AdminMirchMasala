@@ -13,6 +13,19 @@ class CompletedOrders extends StatefulWidget {
 class _CompletedOrdersState extends State<CompletedOrders> {
   List dropList = ['confirmed', 'delivered', 'ordered', 'On-The-Way'];
   var selectedUser;
+  static int listLength;
+  List<String> arrayList;
+
+  void getLength(int length) {
+    listLength = length;
+
+    List<String> localList = List.generate(listLength, (index) {
+      print(listLength);
+      return '';
+    });
+
+    arrayList = localList;
+  }
 
   @override
   void initState() {
@@ -23,12 +36,6 @@ class _CompletedOrdersState extends State<CompletedOrders> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   centerTitle: true,
-      //   backgroundColor: Colors.black,
-      //   title: Text('All Orders'),
-      // ),
       body: StreamBuilder(
         stream: Firestore.instance
             .collection("orders")
@@ -36,6 +43,8 @@ class _CompletedOrdersState extends State<CompletedOrders> {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            getLength(snapshot.data.documents.length);
+
             return ListView.builder(
               shrinkWrap: true,
               itemCount: snapshot.data.documents.length,
@@ -100,15 +109,14 @@ class _CompletedOrdersState extends State<CompletedOrders> {
                               "Status : ${snapshot.data.documents[index].data["status"]}",
                               style: TextStyle(fontSize: 19),
                             ),
-                            value: selectedUser,
                             onChanged: (String value) {
+                              Firestore.instance
+                                  .collection("orders")
+                                  .document(snapshot
+                                      .data.documents[index].data["order_id"])
+                                  .updateData({"status": value.toString()});
                               setState(() {
-                                Firestore.instance
-                                    .collection("orders")
-                                    .document(snapshot
-                                        .data.documents[index].data["order_id"])
-                                    .updateData({"status": value.toString()});
-                                selectedUser = value;
+                                arrayList.insert(index, 'value');
                               });
                             },
                             items: dropList.map(
