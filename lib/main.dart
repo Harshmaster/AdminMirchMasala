@@ -5,6 +5,7 @@ import 'package:adminAppPandamic/screens/ViewUsers.dart';
 import 'package:adminAppPandamic/screens/viewOrders.dart';
 import 'package:flutter/material.dart';
 import './screens/ViewProducts.dart';
+import './screens/TAbBarOrders.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         ViewUsers.routeName: (ctx) => ViewUsers(),
         ViewOrders.routeName: (ctx) => ViewOrders(),
         SearchOrders.routeName: (ctx) => SearchOrders(),
+        OrdersTabBar.routeName:(ctx) => OrdersTabBar(),
       },
       debugShowCheckedModeBanner: false,
     );

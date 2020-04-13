@@ -47,7 +47,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           centerTitle: true,
           automaticallyImplyLeading: false,
           elevation: 0,
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.blue,
           title: Text('ALL PRODUCTS'),
         ),
         body: productList != null

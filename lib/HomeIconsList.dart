@@ -1,6 +1,6 @@
 import 'package:adminAppPandamic/screens/SearchOrders.dart';
+import 'package:adminAppPandamic/screens/TAbBarOrders.dart';
 import 'package:adminAppPandamic/screens/ViewUsers.dart';
-import 'package:adminAppPandamic/screens/viewOrders.dart';
 
 import './models/HomeCategory.dart';
 import './screens/ViewProducts.dart';
@@ -28,7 +28,7 @@ List<Category> categoryList = [
     title: 'View Orders',
     subTitle: 'HELLOHII',
     imgLink: 'assets/images/ViewOrders.png',
-    routeAddress: ViewOrders.routeName,
+    routeAddress: OrdersTabBar.routeName,
   ),
     Category(
     title: 'Search Order',

@@ -51,102 +51,128 @@ class _SingleProductState extends State<SingleProduct> {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
-          title: Text('View Details'),
-          backgroundColor: Colors.red[300],
-        ),
+            actions: [
+              Container(
+                child: IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => EditProduct(
+                                  id: widget.id,
+                                )));
+                  },
+                ),
+              )
+            ],
+            centerTitle: true,
+            automaticallyImplyLeading: false,
+            elevation: 0,
+            title: Text('View Details'),
+            backgroundColor: Colors.blue),
         body: productDetails != null
             ? InkWell(
-              onTap: (){
-                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EditProduct(id: widget.id,)));
-              },
-                          child: Card(
-                  margin: EdgeInsets.all(10),
-                  child: Container(
-                    margin: EdgeInsets.all(0),
-                    padding: EdgeInsets.all(10),
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                            padding: EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                                border: Border.all(),
-                                borderRadius: BorderRadius.circular(10)),
-                            width: 150,
-                            height: 150,
-                            child: Image.network(
-                              productDetails[0].productImageUrl,
-                              fit: BoxFit.cover,
-                            )),
-                        SizedBox(
-                          height: 20,
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(13),
+                      color: Colors.white,
+                      border: Border.all(
+                        width: 2,
+                      )),
+                  height: 500,
+                  margin: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(30),
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.only(
+                            left: (MediaQuery.of(context).size.width - 250) / 2,
+                            right:
+                                (MediaQuery.of(context).size.width - 250) / 2,
+                          ),
+                          padding: EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                              border: Border.all(),
+                              borderRadius: BorderRadius.circular(10)),
+                          width: 150,
+                          height: 150,
+                          child: Image.network(
+                            productDetails[0].productImageUrl,
+                            fit: BoxFit.cover,
+                          )),
+                      Expanded(
+                        child: SizedBox(
+                          height: 0,
                         ),
-                        Text(
-                          'Item:    ${productDetails[0].productName}', 
-                          style: TextStyle(
-                              color: Colors.brown,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 19),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          "Is Recommended:    ${productDetails[0].isRecommended.toString()}",
-                          style: TextStyle(
-                              color: Colors.pink,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 19),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          "Category:    ${productDetails[0].productCategory}",
-                          style: TextStyle(
-                              color: Colors.amber,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 19),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          "Price:    Rs ${productDetails[0].productPrice}",
-                          style: TextStyle(
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 19),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          "Quantity:    ${productDetails[0].productSize}",
-                          style: TextStyle(
-                              color: Colors.indigoAccent,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 19),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          "Product Vendor:    ${productDetails[0].productVendor}",
-                          style: TextStyle(
-                              color: Colors.brown,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 19),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                      ],
-                    ),
+                      ),
+                      Text(
+                        'Item:    ${productDetails[0].productName}',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 21),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "Is Recommended:    ${productDetails[0].isRecommended.toString()}",
+                        style: TextStyle(
+                            color: Colors.brown,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 19),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "Category:    ${productDetails[0].productCategory}",
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 19),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "Price:    Rs ${productDetails[0].productPrice}",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 19),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "Quantity:    ${productDetails[0].productSize}",
+                        style: TextStyle(
+                            color: Colors.brown,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 19),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "Product Vendor:    ${productDetails[0].productVendor}",
+                        style: TextStyle(
+                            color: Colors.green[600],
+                            fontWeight: FontWeight.bold,
+                            fontSize: 19),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                    ],
                   ),
                 ),
-            )
+              )
             : SpinKitCircle(color: Colors.red));
   }
 }

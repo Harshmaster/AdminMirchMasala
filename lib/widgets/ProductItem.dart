@@ -60,8 +60,8 @@ class ProductItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16.5,
                   fontWeight: FontWeight.bold,
-                  color: Colors.brown,
-                ),
+                  color: Colors.black,
+                ), 
               ),
             ),
             Text(
@@ -83,7 +83,7 @@ class ProductItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.green,
+                  color: Colors.black,
                 ),
                 textAlign: TextAlign.end,
               ),

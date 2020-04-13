@@ -15,7 +15,10 @@ class _ViewUsersState extends State<ViewUsers> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        backgroundColor: Colors.red[200],
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: Colors.blue,
         title: Text('All users'),
       ),
       body: StreamBuilder(
@@ -26,41 +29,50 @@ class _ViewUsersState extends State<ViewUsers> {
               shrinkWrap: true,
               itemCount: snapshot.data.documents.length,
               itemBuilder: (context, index) {
-                return Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          "Name : ${snapshot.data.documents[index].data["name"]}",
-                          style: TextStyle(
-                            color: Colors.amber,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                return Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(13),
+                      border: Border.all(
+                        width: 2,
+                      )),
+                  width: double.infinity,
+                  margin: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        "Name : ${snapshot.data.documents[index].data["name"]}",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Text(
-                          "Mobile : ${snapshot.data.documents[index].data["mobile_number"]}",
-                          style: TextStyle(
-                            color: Colors.brown,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                      SizedBox(
+                        height: 7,
+                      ),
+                      Text(
+                        "Mobile : ${snapshot.data.documents[index].data["mobile_number"]}",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 19,
+                          fontWeight: FontWeight.w400,
                         ),
-                        Text(
-                          "Email : ${snapshot.data.documents[index].data["email"]}",
-                          style: TextStyle(
-                            color: Colors.pink,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                      SizedBox(
+                        height: 7,
+                      ),
+                      Text(
+                        "Email : ${snapshot.data.documents[index].data["email"]}",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                        fontWeight: FontWeight.w400,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
               },

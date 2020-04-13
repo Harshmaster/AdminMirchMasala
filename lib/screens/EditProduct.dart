@@ -10,6 +10,7 @@ class EditProduct extends StatefulWidget {
 }
 
 class _EditProductState extends State<EditProduct> {
+  final imageController = TextEditingController();
   final nameController = TextEditingController();
   bool selectedvalue;
   final categoryController = TextEditingController();
@@ -45,7 +46,7 @@ class _EditProductState extends State<EditProduct> {
         priceController.text = docs["product_price"];
         quantityController.text = docs["product_size"];
         vendorController.text = docs["product_vendor"];
-        imageUrl = docs["product_image_url"];
+        imageController.text = docs["product_image_url"];
       });
     });
   }
@@ -60,30 +61,56 @@ class _EditProductState extends State<EditProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        elevation: 0,
+        backgroundColor: Colors.blue,
         automaticallyImplyLeading: false,
         title: Text('EDIT PRODUCT'),
         centerTitle: true,
       ),
-      body: imageUrl != null
+      body: vendorController.text != null
           ? SingleChildScrollView(
               child: Container(
                 child: Column(
                   children: [
+                    // Container(
+                    //   padding: EdgeInsets.all(8),
+                    //   decoration: BoxDecoration(
+                    //     border: Border.all(),
+                    //     borderRadius: BorderRadius.circular(10),
+                    //   ),
+                    //   margin: EdgeInsets.only(top: 30),
+                    //   width: 190,
+                    //   height: 190,
+                    //   child: ClipRRect(
+                    //     child: Image.network(
+                    //       imageUrl,
+                    //       fit: BoxFit.cover,
+                    //     ),
+                    //   ),
+                    // ),
                     Container(
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      margin: EdgeInsets.only(top: 30),
-                      width: 190,
-                      height: 190,
-                      child: ClipRRect(
-                        child: Image.network(
-                          imageUrl,
-                          fit: BoxFit.cover,
-                        ),
+                      margin: EdgeInsets.all(20),
+                      child: TextField(
+                        controller: imageController,
+                        decoration: InputDecoration(
+                            suffixIcon: Icon(
+                              Icons.image,
+                              color: Colors.black,
+                              size: 25,
+                            ),
+                            labelText: 'IMAGE URL',
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            labelStyle: TextStyle(color: Colors.grey),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 2,
+                            )),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 2,
+                            ))),
                       ),
                     ),
                     Container(
@@ -92,7 +119,7 @@ class _EditProductState extends State<EditProduct> {
                         controller: nameController,
                         decoration: InputDecoration(
                             suffixIcon: Icon(
-                              Icons.image,
+                              Icons.info,
                               color: Colors.black,
                               size: 25,
                             ),
@@ -285,6 +312,7 @@ class _EditProductState extends State<EditProduct> {
                             "product_size": quantityController.text,
                             "product_vendor": vendorController.text,
                             "category": selectedCat,
+                            "product_image_url":imageController.text,
                           });
 
                           Navigator.of(context).pop();
