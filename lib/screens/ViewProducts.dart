@@ -11,7 +11,9 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
+  final searchController = TextEditingController();
   List<Product> productList;
+  List<Product> resultList;
 
   getProducts() async {
     Firestore.instance
@@ -33,6 +35,20 @@ class _ProductListScreenState extends State<ProductListScreen> {
     });
   }
 
+  List<Product> searchData(String value) {
+    setState(() {
+      resultList = productList.where((variable) {
+            String _query = value.toLowerCase();
+            String _getName = variable.productName.toLowerCase();
+            bool matchesName = _getName.contains(_query);
+            return (matchesName);
+      }).toList();
+    });
+    for (int i = 0; i < resultList.length; i++) {
+      print(resultList[i].productName);
+    }
+  }
+
   @override
   void initState() {
     getProducts();
@@ -51,24 +67,84 @@ class _ProductListScreenState extends State<ProductListScreen> {
           title: Text('ALL PRODUCTS'),
         ),
         body: productList != null
-            ? GridView(
-                padding: const EdgeInsets.all(10),        
-                children: productList.map((Product catData) {
-                  return ProductItem(
-                    productName: catData.productName,
-                    productSize: catData.productSize,
-                    imageUrl: catData.productImageUrl,
-                    price: catData.productPrice,
-                    category: catData.productCategory,
-                    id: catData.productId,
-                  );
-                }).toList(),
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 0.54, 
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 15,  
-                ),
+            ? SingleChildScrollView(
+                child: Column(children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      top: 20,
+                    ),
+                    child: TextFormField(
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                      onChanged: (value) {
+                        searchData(value);
+                      },
+                      controller: searchController,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'SEARCH',
+                          hintStyle: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                  ),
+                  resultList == null
+                      ? Container(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height,
+                          child: GridView(
+                            padding: const EdgeInsets.all(10),
+                            children: productList.map((Product catData) {
+                              return ProductItem(
+                                productName: catData.productName,
+                                productSize: catData.productSize,
+                                imageUrl: catData.productImageUrl,
+                                price: catData.productPrice,
+                                category: catData.productCategory,
+                                id: catData.productId,
+                              );
+                            }).toList(),
+                            gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 200,
+                              childAspectRatio: 0.54,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 15,
+                            ),
+                          ),
+                        )
+                      : Container(
+                          width: double.infinity,
+                          height:600,
+                          child: GridView(
+                            padding: const EdgeInsets.all(10),
+                            children: resultList.map((Product catData) {
+                              return ProductItem(
+                                productName: catData.productName,
+                                productSize: catData.productSize,
+                                imageUrl: catData.productImageUrl,
+                                price: catData.productPrice,
+                                category: catData.productCategory,
+                                id: catData.productId,
+                              );
+                            }).toList(),
+                            gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 200,
+                              childAspectRatio: 0.54,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 15,
+                            ),
+                          ),
+                        )
+                ]),
               )
             : SpinKitCircle(color: Colors.black));
   }

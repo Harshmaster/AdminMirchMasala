@@ -1,3 +1,4 @@
+import 'package:adminAppPandamic/screens/FetchedOrder.dart';
 import 'package:flutter/material.dart';
 
 class SearchOrders extends StatefulWidget {
@@ -7,6 +8,8 @@ class SearchOrders extends StatefulWidget {
 }
 
 class _SearchOrdersState extends State<SearchOrders> {
+  final idController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +27,7 @@ class _SearchOrdersState extends State<SearchOrders> {
             children: [
               Container(
                 child: TextField(
+                  controller: idController,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -56,7 +60,14 @@ class _SearchOrdersState extends State<SearchOrders> {
                       fontWeight: FontWeight.bold,
                       fontSize: 18),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => FetchedOrder(
+                                id: idController.text,
+                              )));
+                },
               )
             ],
           ),
