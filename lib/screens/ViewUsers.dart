@@ -6,7 +6,8 @@ class User {
   final String name;
   final String mobile;
   final String email;
-  User({this.name, this.email, this.mobile});
+  final String id;
+  User({this.name, this.email, this.mobile, this.id});
 }
 
 class ViewUsers extends StatefulWidget {
@@ -33,6 +34,7 @@ class _ViewUsersState extends State<ViewUsers> {
             name: docs.documents[index].data["name"],
             email: docs.documents[index].data["email"],
             mobile: docs.documents[index].data["mobile_number"],
+            id: docs.documents[index].data["id"],
           );
         });
       });
@@ -150,6 +152,17 @@ class _ViewUsersState extends State<ViewUsers> {
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
+                                SizedBox(
+                                  height: 7,
+                                ),
+                                Text(
+                                  "Email : ${resultList[index].email}",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -196,69 +209,86 @@ class _ViewUsersState extends State<ViewUsers> {
                                     )),
                               ),
                             ),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: snapshot.data.documents.length,
-                              itemBuilder: (context, index) {
-                                return Column(
-                                  children: <Widget>[
-                                    Container(
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(13),
-                                          border: Border.all(
-                                            width: 2,
-                                          )),
-                                      width: double.infinity,
-                                      margin: EdgeInsets.all(10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            "Name : ${snapshot.data.documents[index].data["name"]}",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 21,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                            Container(
+                              height: 500,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: snapshot.data.documents.length,
+                                itemBuilder: (context, index) {
+                                  return SingleChildScrollView(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          padding: EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(13),
+                                              border: Border.all(
+                                                width: 2,
+                                              )),
+                                          width: double.infinity,
+                                       
+                                          margin: EdgeInsets.all(10),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                "Name : ${snapshot.data.documents[index].data["name"]}",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 21,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 7,
+                                              ),
+                                              Text(
+                                                "Mobile : ${snapshot.data.documents[index].data["mobile_number"]}",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 19,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 7,
+                                              ),
+                                              Text(
+                                                "Email : ${snapshot.data.documents[index].data["email"]}",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 7,
+                                              ),
+                                              Text(
+                                                "ID : ${snapshot.data.documents[index].data["id"]}",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          SizedBox(
-                                            height: 7,
-                                          ),
-                                          Text(
-                                            "Mobile : ${snapshot.data.documents[index].data["mobile_number"]}",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 19,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 7,
-                                          ),
-                                          Text(
-                                            "Email : ${snapshot.data.documents[index].data["email"]}",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
                           ],
                         ),
                       );
                     } else {
-                      return SpinKitCircle(color: Colors.red);
+                      return SpinKitCircle(color: Colors.black);
                     }
                   },
                 )
