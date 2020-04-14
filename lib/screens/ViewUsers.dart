@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+class User {
+  final String name;
+  final String mobile;
+  final String email;
+  User({this.name, this.email, this.mobile});
+}
+
 class ViewUsers extends StatefulWidget {
   static const routeName = '/view-users';
 
@@ -10,6 +17,48 @@ class ViewUsers extends StatefulWidget {
 }
 
 class _ViewUsersState extends State<ViewUsers> {
+  final searchController = TextEditingController();
+  List<User> userList;
+  List<User> resultList;
+
+  getUsers() async {
+    print(" GET USERS RUNNING");
+    await Firestore.instance
+        .collection("users")
+        .getDocuments()
+        .then((QuerySnapshot docs) {
+      setState(() {
+        userList = List.generate(docs.documents.length, (index) {
+          return User(
+            name: docs.documents[index].data["name"],
+            email: docs.documents[index].data["email"],
+            mobile: docs.documents[index].data["mobile_number"],
+          );
+        });
+      });
+    });
+  }
+
+  List<User> searchData(String value) {
+    setState(() {
+      resultList = userList.where((variable) {
+        String _query = value.toLowerCase();
+        String _getName = variable.name.toLowerCase();
+        bool matchesName = _getName.contains(_query);
+        return (matchesName);
+      }).toList();
+    });
+    for (int i = 0; i < resultList.length; i++) {
+      print(resultList[i].name);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUsers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,67 +70,199 @@ class _ViewUsersState extends State<ViewUsers> {
         backgroundColor: Colors.blue,
         title: Text('All users'),
       ),
-      body: StreamBuilder(
-        stream: Firestore.instance.collection("users").snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: snapshot.data.documents.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(13),
-                      border: Border.all(
-                        width: 2,
-                      )),
-                  width: double.infinity,
-                  margin: EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Name : ${snapshot.data.documents[index].data["name"]}",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                        ),
+      body: resultList != null
+          ? SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      top: 20,
+                    ),
+                    child: TextField(
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
-                      SizedBox(
-                        height: 7,
-                      ),
-                      Text(
-                        "Mobile : ${snapshot.data.documents[index].data["mobile_number"]}",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 19,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 7,
-                      ),
-                      Text(
-                        "Email : ${snapshot.data.documents[index].data["email"]}",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
+                      onChanged: (value) {
+                        print(value);
+                        searchData(value);
+                      },
+                      controller: searchController,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'SEARCH',
+                          hintStyle: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
                   ),
-                );
-              },
-            );
-          } else {
-            return SpinKitCircle(color: Colors.red);
-          }
-        },
-      ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: resultList.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(13),
+                                border: Border.all(
+                                  width: 2,
+                                )),
+                            width: double.infinity,
+                            margin: EdgeInsets.all(10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "Name : ${resultList[index].name}",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 7,
+                                ),
+                                Text(
+                                  "Mobile : ${resultList[index].mobile}",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 7,
+                                ),
+                                Text(
+                                  "Email : ${resultList[index].email}",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
+            )
+          : userList != null
+              ? StreamBuilder(
+                  stream: Firestore.instance.collection("users").snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                                top: 20,
+                              ),
+                              child: TextField(
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                onChanged: (value) {
+                                  print("THI IS ONCHANGED");
+                                  print(value);
+                                  searchData(value);
+                                },
+                                controller: searchController,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'SEARCH',
+                                    hintStyle: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data.documents.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: <Widget>[
+                                    Container(
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(13),
+                                          border: Border.all(
+                                            width: 2,
+                                          )),
+                                      width: double.infinity,
+                                      margin: EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            "Name : ${snapshot.data.documents[index].data["name"]}",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 21,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 7,
+                                          ),
+                                          Text(
+                                            "Mobile : ${snapshot.data.documents[index].data["mobile_number"]}",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 19,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 7,
+                                          ),
+                                          Text(
+                                            "Email : ${snapshot.data.documents[index].data["email"]}",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return SpinKitCircle(color: Colors.red);
+                    }
+                  },
+                )
+              : SpinKitCircle(color: Colors.black),
     );
   }
 }

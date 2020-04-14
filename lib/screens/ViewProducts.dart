@@ -122,7 +122,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                         )
                       : Container(
                           width: double.infinity,
-                          height:600,
+                          height:500,
                           child: GridView(
                             padding: const EdgeInsets.all(10),
                             children: resultList.map((Product catData) {
