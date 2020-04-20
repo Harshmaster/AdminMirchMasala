@@ -228,7 +228,6 @@ class _ViewUsersState extends State<ViewUsers> {
                                                 width: 2,
                                               )),
                                           width: double.infinity,
-                                       
                                           margin: EdgeInsets.all(10),
                                           child: Column(
                                             crossAxisAlignment:
